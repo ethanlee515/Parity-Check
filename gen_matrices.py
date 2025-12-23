@@ -83,7 +83,7 @@ def build_HX_HZ(A: csr_matrix, B: csr_matrix):
 	return HX_dense, HZ_dense
 
 if __name__ == "__main__":
-	x, y = build_xy(6, 6)
+	x, y = build_xy(12, 6)
 
 	A_terms = [(3,0), (0,1), (0,2)]   # x^3 + y + y^2
 	B_terms = [(0,3), (1,0), (2,0)]   # y^3 + x + x^2
@@ -92,4 +92,7 @@ if __name__ == "__main__":
 	B = eval_poly(x, y, B_terms)
 
 	HX, HZ = build_HX_HZ(A, B)
-
+	v = np.zeros(144, dtype=int)
+	v[[4, 5, 21, 72, 81, 87]] = 1
+	res = HZ @ v
+	print(res)

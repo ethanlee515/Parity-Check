@@ -60,7 +60,7 @@ def weight_constraint(n, distance):
 	lines.append("(assert (<= (+")
 	for j in range(n):
 		lines.append(f"\t(ite v{j} 1 0)")
-	lines.append(f") {distance}))")
+	lines.append(f") {distance - 1}))")
 	return lines
 
 def build_mats(l, m, a, b):
@@ -80,8 +80,8 @@ def stabilizer_constraints(ker):
 	return lines
 
 if __name__ == "__main__":
-	HX, HZ = build_mats(6, 6, [(3,0), (0,1), (0,2)], [(0,3), (1,0), (2,0)])
-	lines = all_lines(HZ, 5)
+	HX, HZ = build_mats(12, 6, [(3,0), (0,1), (0,2)], [(0,3), (1,0), (2,0)])
+	lines = all_lines(HZ, 12)
 	for line in lines:
 		print(line)
 
