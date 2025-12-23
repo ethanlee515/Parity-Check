@@ -2,6 +2,7 @@
 
 import gen_matrices
 from gen_matrices import *
+import galois
 
 def xor_chain(vs):
     if not vs:
@@ -18,6 +19,10 @@ def all_lines(H, distance):
 	lines = lines + declare_vars(n)
 	lines = lines + parity_constraints(H)
 	lines = lines + weight_constraint(n, distance)
+	GF = galois.GF(2)
+	GF_H = GF(H)
+	N = GF_H.null_space()
+	lines = lines + stabilizer_constraints(N)
 	lines.append("(check-sat)")
 	return lines
 
@@ -64,11 +69,19 @@ def build_mats(l, m, a, b):
 	B = eval_poly(x, y, b)
 	return build_HX_HZ(A, B)
 
-
+def stabilizer_constraints(ker):
+	k, n = ker.shape
+	lines = ["(assert (or"]
+	for i in range(k):
+		cols = [j for j in range(n) if int(ker[i, j]) == 1]
+		vs = [f"v{j}" for j in cols]
+		lines.append(f"\t(= {xor_chain(vs)} true)")
+	lines.append("))")
+	return lines
 
 if __name__ == "__main__":
 	HX, HZ = build_mats(6, 6, [(3,0), (0,1), (0,2)], [(0,3), (1,0), (2,0)])
-	lines = all_lines(HZ, 6)
+	lines = all_lines(HZ, 5)
 	for line in lines:
 		print(line)
 
