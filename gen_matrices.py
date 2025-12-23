@@ -96,3 +96,15 @@ if __name__ == "__main__":
 	v[[4, 5, 21, 72, 81, 87]] = 1
 	res = HZ @ v
 	print(res)
+
+	import galois
+	GF = galois.GF(2)
+	def in_rowspace(H, v):
+		# solve H^T a = v  over GF(2)
+		H = GF(H)
+		v = GF(v)
+		a = galois.linalg.solve(H.T, v)  # may raise if no solution
+		return True
+	print(f"in_rowspace check = {in_rowspace(HZ, v)}")
+	
+

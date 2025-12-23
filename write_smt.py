@@ -3,6 +3,7 @@
 import gen_matrices
 from gen_matrices import *
 import galois
+import json
 
 def xor_chain(vs):
     if not vs:
@@ -12,15 +13,16 @@ def xor_chain(vs):
         term = f"(xor {term} {v})"
     return term
 
-def all_lines(H, distance):
+def all_lines(HX, HZ, distance, is_z_error = True):
+	(H1, H2) = (HX, HZ) if is_z_error else (HZ, HX)
 	lines = []
 	lines.append("(set-logic QF_UFLIA)")
-	m, n = H.shape
+	m, n = H1.shape
 	lines = lines + declare_vars(n)
-	lines = lines + parity_constraints(H)
+	lines = lines + parity_constraints(H1)
 	lines = lines + weight_constraint(n, distance)
 	GF = galois.GF(2)
-	GF_H = GF(H)
+	GF_H = GF(H2)
 	N = GF_H.null_space()
 	lines = lines + stabilizer_constraints(N)
 	lines.append("(check-sat)")
@@ -80,8 +82,15 @@ def stabilizer_constraints(ker):
 	return lines
 
 if __name__ == "__main__":
-	HX, HZ = build_mats(12, 6, [(3,0), (0,1), (0,2)], [(0,3), (1,0), (2,0)])
-	lines = all_lines(HZ, 12)
+	with open("config.json") as f:
+		params = json.load(f)
+	l = int(params["l"])
+	m = int(params["m"])
+	A = [tuple(pair) for pair in params["A"]]
+	B = [tuple(pair) for pair in params["B"]]
+	distance = int(params.get("distance", 6))
+	is_z_error = bool(params.get("is_z_error", True))
+	HX, HZ = build_mats(l, m, A, B)
+	lines = all_lines(HX, HZ, distance, is_z_error)
 	for line in lines:
 		print(line)
-
