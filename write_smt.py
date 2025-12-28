@@ -16,7 +16,7 @@ def xor_chain(vs):
 def all_lines(HX, HZ, distance, is_z_error = True):
 	(H1, H2) = (HX, HZ) if is_z_error else (HZ, HX)
 	lines = []
-	lines.append("(set-logic QF_UFLIA)")
+	lines.append("(set-logic QF_LIA)")
 	m, n = H1.shape
 	lines = lines + declare_vars(n)
 	lines = lines + parity_constraints(H1)
