@@ -32,7 +32,7 @@ $$\sum_i \texttt{int}(x_i) < d_0$$
 Which is allowed, as SMT solvers understand integers.
 The constraint $H_Z \vec{x} = \vec{0}$ then corresponds to the following formula:
 
-$$\forall i, \oplus_{j\in H_{ij}} x_j = 0$$
+$$\forall i, \neg(\oplus_{j: H_{ij}=1} x_j)$$
 
 Which is a direct translation from addition and multiplication modulo 2 to XORs and ANDs.
 Finally, the constraint $\vec{x}\notin \mathsf{rowspace}(H_Z)$ is translated in the following way.
