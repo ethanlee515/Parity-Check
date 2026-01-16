@@ -40,7 +40,9 @@ the constraint $\vec{x}\notin \mathsf{rowspace}(H_Z)$ cannot be translated direc
 It is treated as follows:
 1. We make use of the fact that $\mathsf{rowspace}(H_Z)=(\mathsf{ker}(H_Z))^\perp$,
    so the constraint is equivalent to $\vec{x}\notin(\mathsf{ker}(H_Z))^\perp$.
-2. We decompose the space $\mathsf{ker}(H_Z)=\set{\vec{s}_ {1},\ldots, \vec{s}_\ell}$.
-3. We arrive at $\exists i, \vec{x} \cdot \vec{s}_ i \ne 0$. Or equivalently,
+2. We unfold the $\perp$ operator and arrive at $\exists \vec{y}\in\mathsf{ker}(H_Z), \vec{x}\cdot\vec{y}\ne 0$.
+3. We decompose the space $\mathsf{ker}(H_Z)=\set{\vec{s}_ {1},\ldots, \vec{s}_\ell}$.
+4. For $\vec{x}\cdot\vec{y}=1$, the nonzero term has to come from one of the basis vectors.
+   We arrive at $\exists i, \vec{x} \cdot \vec{s}_ i \ne 0$. Or equivalently,
 
 $$\wedge_ i ( \oplus_{j \in \vec{s}_ i} x_ {ij} )$$
