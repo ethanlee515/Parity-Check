@@ -45,4 +45,4 @@ It is treated as follows:
 4. For $\vec{x}\cdot\vec{y}=1$, the nonzero term has to come from one of the basis vectors.
    We arrive at $\exists i, \vec{x} \cdot \vec{s}_ i \ne 0$. Or equivalently,
 
-$$\wedge_ i ( \oplus_{j \in \vec{s}_ i} x_ {ij} )$$
+$$\vee_ i ( \oplus_{j \in \vec{s}_ i} x_ {ij} )$$
