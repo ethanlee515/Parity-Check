@@ -35,14 +35,10 @@ The constraint $H_Z \vec{x} = \vec{0}$ then corresponds to the following formula
 $$\forall i, \neg(\oplus_{j: H_{ij}=1} x_j)$$
 
 Which is a direct translation from addition and multiplication modulo 2 to XORs and ANDs.
-Finally, the constraint $\vec{x}\notin \mathsf{rowspace}(H_Z)$ is translated in the following way.
-We first make use of the fact that $\mathsf{rowspace}(H_Z)=(\mathsf{ker}(H_Z))^\perp$,
-so the constraint is equivalent to $\vec{x}\notin(\mathsf{ker}(H_Z))^\perp$.
-We then decompose the space $\mathsf{ker}(H_Z)=\set{\vec{s}_ {1},\ldots, \vec{s}_\ell}$.
-We then arrive at
+Finally, the constraint $\vec{x}\notin \mathsf{rowspace}(H_Z)$ is translated as follows:
+1. We make use of the fact that $\mathsf{rowspace}(H_Z)=(\mathsf{ker}(H_Z))^\perp$,
+   so the constraint is equivalent to $\vec{x}\notin(\mathsf{ker}(H_Z))^\perp$.
+2. We decompose the space $\mathsf{ker}(H_Z)=\set{\vec{s}_ {1},\ldots, \vec{s}_\ell}$.
+3. We arrive at $\exists i, \vec{x} \cdot \vec{s}_ i \ne 0$. Or equivalently,
 
-$$\exists i, \vec{x} \cdot \vec{s}_i \ne 0$$
-
-Or equivalently,
-
-$$\wedge_i ( \oplus_{j \in \vec{s}_ i} x_ {ij} )$$
+$$\wedge_ i ( \oplus_{j \in \vec{s}_ i} x_ {ij} )$$
