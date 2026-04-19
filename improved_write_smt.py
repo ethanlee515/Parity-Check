@@ -56,7 +56,7 @@ if __name__ == "__main__":
 		distance = int(params.get("distance", 6))
 		HX, HZ = build_mats(l, m, A, B)
 		lines = improved_all_lines(HX, HZ, distance, is_z_error)
-		out_path = out_dir / f"{2 * l * m}-{"Z" if is_z_error else "X"}.smt2"
+		out_path = out_dir / f"{2 * l * m}-{'Z' if is_z_error else 'X'}.smt2"
 		with out_path.open("w") as out_file:
 			for line in lines:
 				print(line, file=out_file)
