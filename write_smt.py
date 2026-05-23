@@ -4,6 +4,8 @@ import gen_matrices
 from gen_matrices import *
 import galois
 import json
+from itertools import product
+from pathlib import Path
 
 def xor_chain(vs):
     if not vs:
@@ -82,15 +84,19 @@ def stabilizer_constraints(ker):
 	return lines
 
 if __name__ == "__main__":
-	with open("config.json") as f:
-		params = json.load(f)
-	l = int(params["l"])
-	m = int(params["m"])
-	A = [tuple(pair) for pair in params["A"]]
-	B = [tuple(pair) for pair in params["B"]]
-	distance = int(params.get("distance", 6))
-	is_z_error = bool(params.get("is_z_error", True))
-	HX, HZ = build_mats(l, m, A, B)
-	lines = all_lines(HX, HZ, distance, is_z_error)
-	for line in lines:
-		print(line)
+	with open("configs.json") as f:
+		params_set = json.load(f)
+	out_dir = Path("outputs")
+	out_dir.mkdir(parents=True, exist_ok=True)
+	for (params, is_z_error) in product(params_set, [True, False]):
+		l = int(params["l"])
+		m = int(params["m"])
+		A = [tuple(pair) for pair in params["A"]]
+		B = [tuple(pair) for pair in params["B"]]
+		distance = int(params.get("distance", 6))
+		HX, HZ = build_mats(l, m, A, B)
+		lines = all_lines(HX, HZ, distance, is_z_error)
+		out_path = out_dir / f"{2 * l * m}-{'Z' if is_z_error else 'X'}.smt2"
+		with out_path.open("w") as out_file:
+			for line in lines:
+				print(line, file=out_file)
