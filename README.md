@@ -22,7 +22,7 @@ Distance $d_X$ is then defined by the following integer programming problem:
 
 Compute $w(\vec{x})$ subject to the constraints:
 * Undetectable: $H_Z \vec{x} = \vec{0}$
-* Nontrivial: $\vec{x}\notin \mathsf{rowspace}(H_Z)$
+* Nontrivial: $\vec{x}\notin \mathsf{rowspace}(H_X)$
 
 Now, suppose we want to show that the distance is at least $d_X\geq d_0$.
 As we want an UNSAT instance, we then have the following constraint:
@@ -35,14 +35,14 @@ The constraint $H_Z \vec{x} = \vec{0}$ then corresponds to the following formula
 $$\forall i, \neg(\oplus_{j: H_{ij}=1} x_j)$$
 
 Which is a direct translation from addition and multiplication modulo 2 to XORs and ANDs.
-Finally, as $\mathsf{rowspace}(H_Z)$ is a very large set,
-the constraint $\vec{x}\notin \mathsf{rowspace}(H_Z)$ cannot be translated directly.
+Finally, as $\mathsf{rowspace}(H_X)$ is a very large set,
+the constraint $\vec{x}\notin \mathsf{rowspace}(H_X)$ cannot be translated directly.
 It is treated as follows:
-1. We make use of the fact that $\mathsf{rowspace}(H_Z)=(\mathsf{ker}(H_Z))^\perp$,
-   so the constraint is equivalent to $\vec{x}\notin(\mathsf{ker}(H_Z))^\perp$.
-2. We unfold the $\perp$ operator and arrive at $\exists \vec{y}\in\mathsf{ker}(H_Z), \vec{x}\cdot\vec{y}\ne 0$.
-3. We decompose the space $\mathsf{ker}(H_Z)=\set{\vec{s}_ {1},\ldots, \vec{s}_\ell}$.
-4. For $\vec{x}\cdot\vec{y}=1$, the nonzero term has to come from one of the basis vectors.
-   We arrive at $\exists i, \vec{x} \cdot \vec{s}_ i \ne 0$. Or equivalently,
+1. We make use of the fact that $\mathsf{rowspace}(H_X)=(\mathsf{ker}(H_X))^\perp$,
+   so the constraint is equivalent to $\vec{x}\notin(\mathsf{ker}(H_X))^\perp$.
+2. We unfold the $\perp$ operator and arrive at $\exists \vec{y}\in\mathsf{ker}(H_X), \vec{x}\cdot\vec{y}\ne 0$.
+3. We choose a basis $\mathsf{ker}(H_X)=\mathsf{span}\set{\vec{s}_1,\ldots, \vec{s}_\ell}$.
+4. Since the dot product is linear, $\vec{x}\cdot\vec{y}=1$ for some kernel vector iff
+   $\vec{x}\cdot\vec{s}_i\ne 0$ for some basis vector. Or equivalently,
 
-$$\vee_ i ( \oplus_{j \in \vec{s}_ i} x_ {j} )$$
+$$\vee_i \left( \oplus_{j : (s_i)_j = 1} x_j \right)$$
