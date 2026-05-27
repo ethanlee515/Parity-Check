@@ -5,12 +5,12 @@ Hitting some error-correcting codes with cvc5.
 ## Usage
 
 1. Modify "config.json" as needed
-2. Generate SMT inputs by `./write_smt.py > 72-12-6-Z.smt2`
+2. Generate SMT inputs by `./improved_write_smt.py`
 3. Feed the ".smt2" file into an SMT solver
 
 ## Requirements
 
-* Python with `numpy`, `scipy`, `galois`, and `json` packages
+* Python with `numpy`, `scipy`, and `galois` packages
 * Some kind of SMT solver (such as cvc5)
 
 ## Theory
